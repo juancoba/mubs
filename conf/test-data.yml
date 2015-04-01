@@ -1,0 +1,8 @@
+- !!models.User
+    email:      bob@gmail.com
+    name:       Bob
+    password:   secret
+- !!models.Blog
+	id: 		1
+	name:		Blog1
+	folder:		comment1

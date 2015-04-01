@@ -1,0 +1,65 @@
+@(user: String)
+
+@import helper._
+
+
+<html>
+<head>
+    <title>Newpost</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+</head>
+
+<body onload="startTime()"style="width:992px;margin: 0 auto;">
+<div style="position:absolute;right: 10px; top: 10px;">Logged in as, @user
+    <br>
+    @if(user != "Guest"){
+    <a href="/" class="login-link" >Log out</a>
+    }
+</div>
+<h1 style="color: #FF6600;">Add a new post:</h1>
+<br>
+@form(routes.Application.addNewPost()){
+<div class="container-fluid" style="border-radius: 6px;">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="control-group" style="margin-left: 7px;margin-top: 10px;">
+                <label class="control-label" for="title" style="font-size: 22px;color: #FF6600;">TITLE:</label>
+                <div class="controls" style="margin-left: 7px;">
+                    <input type="text" class="input-large" id="title" name="title">
+                </div>
+            </div>
+            <div style="margin-bottom: 6px;margin-left: 7px;">
+                <i class="timePosted" id="time" style="color: #FF6600;"></i>
+            </div>
+            <input type="hidden" id="date" name="postedAt"/>
+            <div class="control-group" style="margin-left: 7px;">
+                <label class="control-label" for="content" style="font-size: 22px;color: #FF6600;">CONTENT:</label>
+                <div class="controls">
+                    <textarea class="input-large" id="content" name="content" style="width: 700px; height: 300px;resize: none;"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="margin-top: 10px;margin-left: 25px;">
+    <input type="submit" class="btn btn-success btn-small" value="Create">
+</div>
+}
+@form(routes.Application.index()){
+<div style="margin-left: 25px;">
+    <input type="submit" class="btn btn-primary btn-small" value="Cancel">
+</div>
+}
+</div>
+</body>
+
+<script>
+    function startTime(){
+        var today=new Date();
+        $('#time').html(today.toUTCString());
+        $('#date').attr('value',today.toUTCString());
+    }
+</script>
+</html>

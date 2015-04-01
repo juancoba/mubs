@@ -1,0 +1,52 @@
+@(posts: List[Post], postForm: Form[Post], user: String)
+
+@import helper._
+
+
+<html>
+<head>
+    <title>Edit posts</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+</head>
+<body style="width:992px;margin: 0 auto;">
+<div style="position:absolute;right: 10px; top: 10px;">Logged in as, @user
+    <br>
+    @if(user != "Guest"){
+    <a href="/" class="login-link" >Log out</a>
+    }
+</div>
+<h1 style="color: #FF6600;">Edit post</h1>
+<br>
+<div>
+    <div class="container-fluid" style="border-radius: 6px;align: center;">
+        <div class="row-fluid">
+            <div class="span12">
+                <div style="text-align: center">
+                    @for(post <- posts){
+                    <div style="margin-top: 10px;">
+                        <b class="title" style="margin-left: 7px;font-size: 24px;color: #FF6600;">@post.title</b>
+                        <i class="timePosted" style="margin-left: 7px;color: #FF6600;">@post.postedAt</i>
+                    </div>
+
+                    <div style="margin-left: 7px;">
+                        @form(routes.Application.deletePost(post.id)){
+                        <input type="submit" class="btn btn-danger btn-small" value="Delete">
+                        }
+                        @form(routes.Application.editPost(post.id)){
+                        <input type="submit" class="btn btn-primary btn-small" value="Edit">
+                        }
+                    </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    @form(routes.Application.index()){
+    <input type="submit" class="btn btn-primary" value="Home">
+    }
+</div>
+</body>
+</html>

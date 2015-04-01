@@ -1,7 +1,51 @@
-@(message: String)
+@(posts: List[Post], postForm: Form[Post], user: String)
+@import helper._
 
-@main("Welcome to Play") {
 
-    @play20.welcome(message, style = "Java")
+<html>
+<head>
+    <title>Blog</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+</head>
+<body style="width:992px;margin: 0 auto;">
+<div style="position:absolute;right: 10px; top: 10px;">Logged in as, @user
+    <br>
+    <a href="/" class="login-link" >Log out</a>
+    <a href="/" class="login-link" >Change Password</a>
+</div>
+<h1 style="color: #FF6600;">Blog</h1>
+<div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+        <div class="nav-collapse">
+            <ul class="nav">
+                <li><a href="/newpost">New post</a></li>
+                <li><a href="/editpost"> Edit post</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" style="border-radius: 6px;">
+    <div class="row-fluid">
+        <div class="span12">
+            <div>
+                @for(post <- posts){
+                <div style="margin-top: 10px;">
+                    <b class="title" style="margin-left: 7px;font-size: 24px;color: #FF6600;">@post.title</b>
+                </div>
+                <i class="timePosted" style="margin-left: 7px;color: #FF6600;">@post.postedAt</i>
+                <div class="control-group" style="margin-left: 7px;">
+                    <div class="controls">
+                        <textarea class="input-xlarge" id="textarea" style="width: 600px; height: 200px;resize: none;" readonly>@post.content</textarea>
+                    </div>
+                </div>
 
-}
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
+</body>
+</html>
